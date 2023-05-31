@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('ideas', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->nullable();
             $table->text('description');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
