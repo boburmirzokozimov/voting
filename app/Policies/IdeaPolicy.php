@@ -9,7 +9,7 @@ class IdeaPolicy
 {
     public function manage(User $user, Idea $idea): bool
     {
-        return $user->is($idea->creator);
+        return $user->is($idea->user);
     }
 
 }

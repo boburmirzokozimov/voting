@@ -16,10 +16,16 @@ return new class extends Migration {
             $table->string('slug')->nullable();
             $table->text('description');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
             $table->foreign('user_id')
                 ->on('users')
+                ->references('id')
+                ->onDelete('cascade');
+
+            $table->foreign('category_id')
+                ->on('categories')
                 ->references('id')
                 ->onDelete('cascade');
         });

@@ -19,6 +19,14 @@ class IdeaTest extends TestCase
             ->assertRedirect('/login');
     }
 
+    public function test_guests_cannot_vote_an_idea()
+    {
+        $idea = IdeaFactory::create();
+
+        $this->get($idea->path() . '/votes')
+            ->assertRedirect('/login');
+    }
+
     public function test_an_idea_requires_a_title(): void
     {
         $user = $this->signIn();
@@ -42,6 +50,8 @@ class IdeaTest extends TestCase
 
     public function test_an_authenticated_user_can_create_an_idea(): void
     {
+        $this->withoutExceptionHandling();
+
         $user = $this->signIn();
 
         $idea = Idea::factory()->raw(['user_id' => $user->id]);
@@ -76,7 +86,7 @@ class IdeaTest extends TestCase
     {
         $idea = IdeaFactory::create();
 
-        $this->actingAs($idea->creator)
+        $this->actingAs($idea->user)
             ->patch($idea->path(), ['title' => 'Changed']);
 
         $this->assertDatabaseHas('ideas', ['title' => 'Changed']);
@@ -88,9 +98,33 @@ class IdeaTest extends TestCase
 
         $idea = IdeaFactory::create();
 
-        $this->actingAs($idea->creator)
+        $this->actingAs($idea->user)
             ->delete($idea->path());
 
-        $this->assertDatabaseCount('ideas', 0);
+        $this->assertModelMissing($idea);
+    }
+
+    public function test_a_user_can_see_the_idea(): void
+    {
+        $this->signIn();
+
+        $idea = IdeaFactory::create();
+
+        $this->get($idea->path())
+            ->assertSee($idea->title)
+            ->assertSee($idea->description);
+    }
+
+    public function test_a_user_can_vote_for_an_idea(): void
+    {
+        $this->withoutExceptionHandling();
+        $user = $this->signIn();
+
+        $idea = IdeaFactory::create();
+
+        $this->get($idea->path() . '/votes');
+
+        $this->assertDatabaseHas('user_vote', ["idea_id" => $idea->id,
+            "user_id" => $user->id]);
     }
 }

@@ -5,3 +5,15 @@
 [x-cloak] {
     display: none !important;
 }
+
+.btn {
+    @apply flex items-center justify-center w-1/2  text-sm rounded-xl bg-gray-200 py-4 hover:bg-gray-400 transition duration-150 ease-in-out
+}
+
+.btn-blue {
+    @apply flex items-center justify-center w-1/2  text-sm rounded-xl bg-blue-600 py-4 hover:bg-blue-700 text-white transition duration-150 ease-in-out
+}
+
+.card {
+    @apply bg-white rounded-xl mt-8
+}

@@ -11,7 +11,7 @@ class IdeaController extends Controller
 {
     public function index()
     {
-        return view('ideas.index', ['ideas' => Idea::all()]);
+        return view('ideas.index', ['ideas' => Idea::query()->latest()->get()]);
     }
 
     public function store(CreateRequest $request)
@@ -23,7 +23,9 @@ class IdeaController extends Controller
 
     public function show(Idea $idea)
     {
-        return view('ideas.show', compact($idea));
+        return view('ideas.show', [
+            'idea' => $idea
+        ]);
     }
 
     public function edit(Idea $idea)
@@ -38,10 +40,9 @@ class IdeaController extends Controller
 
     public function destroy(Idea $idea)
     {
-        if (!$this->authorize('manage', $idea)) {
-            abort(403);
-        }
-        auth()->user()->ideas()->delete($idea);
+        $this->authorize('manage', $idea);
+
+        $idea->delete();
 
         return back()->with('success', 'Successfully deleted');
     }

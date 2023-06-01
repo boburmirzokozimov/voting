@@ -15,7 +15,8 @@ class CreateRequest extends FormRequest
     {
         return [
             'title' => 'string|min:5',
-            'description' => 'string'
+            'description' => 'string',
+            'category_id' => 'exists:categories,id',
         ];
     }
 }

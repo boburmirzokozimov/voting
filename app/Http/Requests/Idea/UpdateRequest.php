@@ -21,7 +21,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'string|min:5',
-            'description' => 'string'
+            'description' => 'string',
         ];
     }
 

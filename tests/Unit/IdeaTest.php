@@ -2,8 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Models\Idea;
+use App\Models\Category;
+use App\Models\Comment;
 use App\Models\User;
+use Facades\Tests\Setup\IdeaFactory;
 use Tests\TestCase;
 
 class IdeaTest extends TestCase
@@ -13,10 +15,29 @@ class IdeaTest extends TestCase
      */
     public function test_it_can_have_creator(): void
     {
-        $this->withoutExceptionHandling();
+        $idea = IdeaFactory::create();
 
-        $idea = Idea::factory()->create();
+        $this->assertInstanceOf(User::class, $idea->user);
+    }
 
-        $this->assertInstanceOf(User::class, $idea->creator);
+    public function test_it_can_have_category(): void
+    {
+        $idea = IdeaFactory::create();
+
+        $this->assertInstanceOf(Category::class, $idea->category);
+    }
+
+    public function test_it_can_have_comments(): void
+    {
+        $idea = IdeaFactory::withComments(5)->create();
+
+        $this->assertInstanceOf(Comment::class, $idea->comments->first());
+    }
+
+    public function test_it_can_have_votes(): void
+    {
+        $idea = IdeaFactory::withVotes(5)->create();
+
+        $this->assertInstanceOf(User::class, $idea->votes->first());
     }
 }
