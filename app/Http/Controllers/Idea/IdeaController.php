@@ -16,7 +16,7 @@ class IdeaController extends Controller
 
     public function store(CreateRequest $request)
     {
-        auth()->user()->ideas()->create($request->validated());
+        auth()->user()->createIdea($request->validated());
 
         return back()->with('success', 'Created a new idea');
     }

@@ -17,3 +17,29 @@
 .card {
     @apply bg-white rounded-xl mt-8
 }
+
+.comments-container::after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: -40px;
+    height: 100%;
+    width: 3px;
+    background: #78909c;
+    opacity: 0.7;
+}
+
+.comment-container::after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0px;
+    left: -29px;
+    height: 100%;
+    width: 2px;
+    background: #78909c;
+    opacity: 0.7;
+    rotate: 90deg;
+    z-index: -1;
+}

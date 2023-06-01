@@ -30,6 +30,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function createIdea(array $validated)
+    {
+        $this->ideas()->create($validated);
+    }
+
     public function ideas(): HasMany
     {
         return $this->hasMany(Idea::class)->latest();
@@ -39,4 +44,5 @@ class User extends Authenticatable
     {
         return $this->blelongsToMany(Idea::class, 'user_vote');
     }
+
 }

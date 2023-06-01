@@ -1,7 +1,6 @@
-<div class="mb-6">
-    @include('comments.create')
-
-    <div class="comment-container ">
+@include('comments.create')
+<div class="mb-6 w-10/12 ml-auto relative comments-container">
+    <div class=" relative">
         @forelse($idea->comments as $comment)
             @include('comments.show')
         @empty
@@ -10,5 +9,4 @@
             </div>
         @endforelse
     </div>
-
 </div>

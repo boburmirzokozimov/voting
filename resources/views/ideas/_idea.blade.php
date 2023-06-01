@@ -9,7 +9,9 @@
 
         <form action="{{$idea->path().'/votes'}}" method="GET">
             @csrf
-            <button class="bg-gray-200 hover:bg-gray-400 transition duration-150 ease-in-out p-4 rounded-xl">
+            <button
+                class=" {{$idea->isVoted(auth()->user()) ? 'text-white bg-blue-600 hover:bg-blue-700' : 'bg-gray-200 hover:bg-gray-400'}}
+                 transition duration-150 ease-in-out p-4 rounded-xl">
                 Vote
             </button>
         </form>
@@ -38,7 +40,7 @@
                     <div class="w-full flex justify-around text-gray-400 list-none">
                         <div class="w-2/6">{{$idea->created_at->diffForHumans()}}</div>
                         <div class="w-2/5">&bullet; {{$idea->category->name}}</div>
-                        <div class="w-2/5">&bullet; {{count($idea->comments)}} comments</div>
+                        <div class="w-2/5 font-bold">&bullet; {{count($idea->comments)}} comments</div>
                     </div>
                 </div>
                 <div class="w-1/4 flex justify-end" x-data="{ isOpen : false }">

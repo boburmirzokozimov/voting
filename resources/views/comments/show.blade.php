@@ -1,6 +1,6 @@
 <div x-data="{isOpen : false}"
-     class="card p-4 mb-2">
-    <div class="flex">
+     class=" card p-4 mb-2">
+    <div class="flex comment-container relative">
         <div class="w-[100px] flex justify-center">
             <img
                 class="w-10 h-10 rounded-xl"

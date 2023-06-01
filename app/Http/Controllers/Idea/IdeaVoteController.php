@@ -9,7 +9,7 @@ class IdeaVoteController extends Controller
 {
     public function vote(Idea $idea)
     {
-        $idea->addVote(auth()->id());
+        $idea->toggleVote(auth()->user());
         return back();
     }
 }

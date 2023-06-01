@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Votable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Idea extends CustomModel
 {
-    use Sluggable;
+    use Sluggable, Votable;
 
 
     protected $table = 'ideas';
@@ -46,11 +47,6 @@ class Idea extends CustomModel
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)->latest();
-    }
-
-    public function addVote(int $id): void
-    {
-        $this->votes()->attach($id);
     }
 
     public function votes(): BelongsToMany

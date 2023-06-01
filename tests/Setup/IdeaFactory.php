@@ -55,10 +55,9 @@ class IdeaFactory
 
         if ($this->votesCount) {
             for ($i = 0; $i < $this->votesCount; $i++) {
-                $idea->addVote(User::factory()->create()->id);
+                $idea->votes()->attach(User::factory()->create());
             }
         }
-
         return $idea;
     }
 }
