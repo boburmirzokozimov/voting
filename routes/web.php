@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Idea\IdeaCommentController;
 use App\Http\Controllers\Idea\IdeaController;
+use App\Http\Controllers\Idea\IdeaStatusController;
 use App\Http\Controllers\Idea\IdeaVoteController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/ideas/{idea:slug}', [IdeaCommentController::class, 'store'])->name('ideas.idea.comments.store');
     Route::get('/ideas/{idea:slug}/votes', [IdeaVoteController::class, 'vote'])->name('ideas.idea.votes.store');
+    Route::post('/ideas/{idea:slug}/status', [IdeaStatusController::class, 'update'])->name('ideas.idea.status.update');
 });
 
 Route::get('/ideas', [IdeaController::class, 'index'])->name('ideas');

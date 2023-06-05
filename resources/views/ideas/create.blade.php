@@ -18,7 +18,7 @@
                 @endforeach
             </select>
         </div>
-
+        <input type="hidden" name="status_id" value="1">
         <div>
                     <textarea type="text" name="description" id="description"
                               cols="30"

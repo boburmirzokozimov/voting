@@ -1,4 +1,9 @@
 <x-app-layout>
+    <div class="w-1/4 mb-6">
+        <a class="px-4 bg-blue-500 rounded-xl text-white hover:bg-blue-600 p-2" href="{{$backUrl}}">
+            All Ideas
+        </a>
+    </div>
     <div class="filters flex space-x-6 items-center">
         <div class="w-1/3">
             <select name="category" id="category" class="w-full text-gray-900 rounded-xl border-none px-4 py-2">

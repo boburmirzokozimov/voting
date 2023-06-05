@@ -5,6 +5,7 @@ namespace Tests\Setup;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Idea;
+use App\Models\Status;
 use App\Models\User;
 
 class IdeaFactory
@@ -13,6 +14,8 @@ class IdeaFactory
     protected ?Category $category = null;
     protected ?int $commentsCount = null;
     protected ?int $votesCount = null;
+
+    protected ?int $status = null;
 
     public function ownedBy(?User $user = null): self
     {
@@ -43,7 +46,8 @@ class IdeaFactory
         $idea = Idea::factory()->create(
             [
                 'user_id' => $this->user ?? User::factory(),
-                'category_id' => $this->category ?? Category::factory()
+                'category_id' => $this->category ?? Category::factory(),
+                'status_id' => $this->status ?? Status::factory()
             ]
         );
 
@@ -58,6 +62,13 @@ class IdeaFactory
                 $idea->votes()->attach(User::factory()->create());
             }
         }
+
         return $idea;
+    }
+
+    public function withStatus(int $status): self
+    {
+        $this->status = $status;
+        return $this;
     }
 }

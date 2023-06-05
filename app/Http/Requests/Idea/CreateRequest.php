@@ -17,6 +17,7 @@ class CreateRequest extends FormRequest
             'title' => 'string|min:5',
             'description' => 'string',
             'category_id' => 'exists:categories,id',
+            'status_id' => 'exists:statuses,id',
         ];
     }
 }

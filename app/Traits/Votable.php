@@ -15,7 +15,7 @@ trait Votable
         }
     }
 
-    public function isVoted(User $user): bool
+    public function isVoted(?User $user = null): bool
     {
         return $this->votes->contains($user);
     }

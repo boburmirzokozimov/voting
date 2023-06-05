@@ -17,7 +17,7 @@
         </form>
     </div>
     <div class="flex w-full  py-4">
-        <div class="w-[200px] flex justify-center">
+        <div class="w-[120px] flex justify-center">
             <a href="#">
                 <img
                     src="{{gravatar_url($idea->user->email)}}"
@@ -26,7 +26,7 @@
                 >
             </a>
         </div>
-        <div>
+        <div class="w-full">
             <div class="content mb-3 px-4">
                 <h2 class="text-3xl font-extrabold mb-2">
                     <a href="{{route('ideas.show',['idea'=>$idea->slug])}}">{{$idea->title}}</a>
@@ -36,17 +36,17 @@
                 </p>
             </div>
             <div class="flex details justify-between">
-                <div class="w-1/2 mr-4">
-                    <div class="w-full flex justify-around text-gray-400 list-none">
-                        <div class="w-2/6">{{$idea->created_at->diffForHumans()}}</div>
-                        <div class="w-2/5">&bullet; {{$idea->category->name}}</div>
-                        <div class="w-2/5 font-bold">&bullet; {{count($idea->comments)}} comments</div>
+                <div class="w-full mr-4">
+                    <div class="w-3/4 flex justify-around text-gray-400 list-none">
+                        <div class="">{{$idea->created_at->diffForHumans()}}</div>
+                        <div class="">&bullet; {{$idea->category->name}}</div>
+                        <div class=" font-bold">&bullet; {{count($idea->comments)}} comments</div>
                     </div>
                 </div>
                 <div class="w-1/4 flex justify-end" x-data="{ isOpen : false }">
                     <div
-                        class="px-6 mr-2 items-center align-middle text-center bg-gray-background rounded-xl py-1 text-sm">
-                        OPEN
+                        class="{{$idea->status->classes}}   px-6 mr-2 items-center align-middle text-center rounded-xl py-1 text-sm">
+                        {{$idea->status->name}}
                     </div>
                     <button @click="isOpen = !isOpen"
                             @click.away="isOpen = false"

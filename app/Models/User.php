@@ -30,7 +30,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function createIdea(array $validated)
+    public function createIdea(array $validated): void
     {
         $this->ideas()->create($validated);
     }

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Idea;
+use App\Models\Status;
 use Facades\Tests\Setup\IdeaFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -104,16 +105,21 @@ class IdeaTest extends TestCase
         $this->assertModelMissing($idea);
     }
 
-    public function test_a_user_can_see_the_idea(): void
+    public function test_an_owner_can_change_the_status(): void
     {
-        $this->signIn();
+        $this->withoutExceptionHandling();
 
         $idea = IdeaFactory::create();
 
-        $this->get($idea->path())
-            ->assertSee($idea->title)
-            ->assertSee($idea->description);
+        $status = Status::factory()->create();
+
+        $this->actingAs($idea->user)
+            ->post($idea->path() . '/status', ['status_id' => $status->id]);
+
+        $idea->refresh();
+        $this->assertEquals($status->id, $idea->status->id);
     }
+
 
     public function test_a_user_can_vote_for_an_idea(): void
     {

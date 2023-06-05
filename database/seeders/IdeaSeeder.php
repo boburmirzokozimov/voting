@@ -13,6 +13,6 @@ class IdeaSeeder extends Seeder
      */
     public function run(): void
     {
-        Idea::factory(10)->create(['user_id' => 1, 'category_id' => 1]);
+        Idea::factory(10)->create(['user_id' => 1]);
     }
 }

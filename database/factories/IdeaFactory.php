@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use App\Models\Idea;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,8 @@ class IdeaFactory extends Factory
             'title' => $this->faker->sentence(),
             'description' => $this->faker->realText(),
             'user_id' => User::factory()->create(),
-            'category_id' => Category::factory()->create()
+            'status_id' => Status::factory(),
+            'category_id' => Category::factory()
         ];
     }
 }

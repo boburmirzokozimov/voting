@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use Illuminate\Support\Str; @endphp
+    <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -53,36 +54,19 @@
 
     <div class="w-[800px]">
         <nav class="flex items-center justify-between text-sm">
-            <ul class="flex uppercase font-semibold  border-b-4 pb-3 space-x-10">
-                <li>
-                    <a href="#"
-                       class="border-b-4 pb-3 border-blue-400">All Ideas(87)
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                       class="text-gray-400 border-b-4 pb-3 hover:border-blue-400 hover:text-gray-900 transition duration-150 ease-in-out">Considering(87)
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                       class="text-gray-400 border-b-4 pb-3 hover:border-blue-400  hover:text-gray-900 transition duration-150 ease-in-out">In
-                        Progress(87)
-                    </a>
-                </li>
-            </ul>
-            <ul class="flex uppercase font-semibold  border-b-4 pb-3 space-x-10">
-                <li>
-                    <a href="#"
-                       class="text-gray-400 border-b-4 pb-3 hover:border-blue-400  hover:text-gray-900 transition duration-150 ease-in-out">Implemented(10)
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                       class="text-gray-400 border-b-4 pb-3 hover:border-blue-400 hover:text-gray-900 transition duration-150 ease-in-out">Closed(50)
-                    </a>
-                </li>
-            </ul>
+            @foreach($statuses->chunk(3) as $statuses)
+                <ul class="flex uppercase font-semibold  border-b-4 pb-3 space-x-10">
+                    @foreach($statuses as $status)
+                        <li>
+                            <a href="/ideas?q={{$status->name}}"
+                               class="{{ request()->query('q') == $status->name ? 'border-blue-400' : ''}}
+                               border-b-4 pb-3 ">
+                                {{getStatus($status)}} ({{getCount($status_count,$status)}})
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            @endforeach
         </nav>
 
         <div class="mt-8">

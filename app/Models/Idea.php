@@ -53,4 +53,9 @@ class Idea extends CustomModel
     {
         return $this->belongsToMany(User::class, 'user_vote')->withTimestamps();
     }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
+    }
 }

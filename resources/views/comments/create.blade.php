@@ -14,46 +14,21 @@
         <div x-cloak
              x-show="isOpenRadio"
              class="card z-10 absolute w-1/3 top-[40%] left-[20%] text-left bg-white  py-3 px-2 rounded-xl flex items-center flex-col">
-            <form method="post">
+            <form action="{{$idea->path().'/status'}}" method="post">
                 @csrf
                 <div class="mb-4">
-                    <div class="flex items-center mb-4">
-                        <input onchange="this.form.submit()"
-                               checked
-                               id="default-radio-1" type="radio" value="open" name="default-radio"
-                               class="text-green-600 w-4 h-4  bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Open
-                        </label>
-                    </div>
-                    <div class="flex items-center mb-4">
-                        <input onchange="this.form.submit()"
-                               id="default-radio-1" type="radio" value="considering" name="default-radio"
-                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Considering
-                        </label>
-                    </div>
-                    <div class="flex items-center mb-4">
-                        <input onchange="this.form.submit()"
-                               id="default-radio-1" type="radio" value="in_progress" name="default-radio"
-                               class="text-red-600 w-4 h-4  bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">In
-                            Progress
-                        </label>
-                    </div>
-                    <div class="flex items-center mb-4">
-                        <input onchange="this.form.submit()"
-                               id="default-radio-1" type="radio" value="implemented" name="default-radio"
-                               class="text-cyan-600 w-4 h-4  bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Implemented
-                        </label>
-                    </div>
-                    <div class="flex items-center">
-                        <input onchange="this.form.submit()"
-                               id="default-radio-2" type="radio" value="closed" name="default-radio"
-                               class="text-gray-600 w-4 h-4  bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Closed
-                        </label>
-                    </div>
+                    @foreach($statuses as $status)
+                        <div class="flex items-center mb-4">
+                            <input onchange="this.form.submit()"
+                                   id="default-radio-{{$status->id}}" type="radio" value="{{$status->id}}"
+                                   {{$status->id ==$idea->status->id ? 'checked':''}}
+                                   name="status_id"
+                                   class="text-green-600 w-4 h-4  bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="default-radio-{{$status->id}}"
+                                   class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$status->name}}
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
 
 

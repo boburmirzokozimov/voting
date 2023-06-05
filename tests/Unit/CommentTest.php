@@ -6,10 +6,13 @@ use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\User;
 use Facades\Tests\Setup\IdeaFactory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic unit test example.
      */
