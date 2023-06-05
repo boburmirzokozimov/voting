@@ -10,7 +10,11 @@ class IdeaStatusController extends Controller
 {
     public function update(UpdateRequest $request, Idea $idea)
     {
-        $idea->update($request->validated());
+        $idea->update(['status_id' => $request->validated('status_id')]);
+
+        if ($request->validated('notify')) {
+            $idea->notify();
+        }
 
         $idea->save();
 

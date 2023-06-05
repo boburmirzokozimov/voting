@@ -3,10 +3,13 @@
 namespace Tests\Feature;
 
 use Facades\Tests\Setup\IdeaFactory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_guests_cannot_create_a_comment()
     {
         $idea = IdeaFactory::create();

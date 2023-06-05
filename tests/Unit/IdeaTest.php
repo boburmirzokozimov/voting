@@ -7,10 +7,13 @@ use App\Models\Comment;
 use App\Models\Status;
 use App\Models\User;
 use Facades\Tests\Setup\IdeaFactory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class IdeaTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic unit test example.
      */

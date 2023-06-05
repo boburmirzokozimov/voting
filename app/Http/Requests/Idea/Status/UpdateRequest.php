@@ -21,6 +21,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'status_id' => 'exists:statuses,id',
+            'notify' => 'bool'
         ];
     }
 }
