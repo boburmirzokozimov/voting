@@ -22,6 +22,7 @@ class UpdateRequest extends FormRequest
         return [
             'title' => 'string|min:5',
             'description' => 'string',
+            'category_id' => 'exists:categories,id'
         ];
     }
 

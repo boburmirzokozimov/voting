@@ -11,7 +11,7 @@
         </div>
 
         <div>
-            <select wire:model.defer="category_id" name="category_id" id="category_add"
+            <select name="category_id" id="category_add"
                     class="w-full text-sm text-gray-900 rounded-xl bg-gray-100 border-none px-4 py-2">
                 @foreach($categories as $category)
                     <option value="{{$category->id}}">{{$category->name}}</option>

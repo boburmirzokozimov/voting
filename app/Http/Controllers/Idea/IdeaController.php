@@ -39,7 +39,9 @@ class IdeaController extends Controller
                 ->latest()
                 ->paginate(5),
 
-            'categories' => $categories
+
+            'statuses' => Status::all(),
+            'categories' => Category::all(),
         ]);
     }
 
@@ -55,6 +57,8 @@ class IdeaController extends Controller
         return view('ideas.show', [
             'idea' => $idea,
             'statuses' => Status::all(),
+            'categories' => Category::all(),
+            'comments' => $idea->comments()->paginate(10),
             'status_count' => Status::getCount(),
             'backUrl' => url()->previous() !== url()->full()
                 ? url()->previous()
@@ -69,7 +73,7 @@ class IdeaController extends Controller
 
     public function update(UpdateRequest $request, Idea $idea)
     {
-        return $request->persist()->path();
+        return redirect($request->persist()->path());
     }
 
     public function destroy(Idea $idea)
@@ -78,6 +82,6 @@ class IdeaController extends Controller
 
         $idea->delete();
 
-        return back()->with('success', 'Successfully deleted');
+        return redirect('ideas')->with('success', 'Successfully deleted');
     }
 }

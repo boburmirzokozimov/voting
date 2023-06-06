@@ -2,7 +2,7 @@
     <div
         class="idea-container mr-4 border-r-2 border-r-gray-background px-4 py-4 flex flex-col items-center justify-between">
         <div class="text-center text-gray-400 mb-2">
-            <span class="text-gray-900 font-extrabold text-xl">{{count($idea->votes)}}</span>
+            <span class="text-gray-900 font-extrabold text-xl">{{$idea->votes()->count()}}</span>
             <br>
             Votes
         </div>
@@ -40,37 +40,43 @@
                     <div class="w-3/4 flex justify-around text-gray-400 list-none">
                         <div class="">{{$idea->created_at->diffForHumans()}}</div>
                         <div class="">&bullet; {{$idea->category->name}}</div>
-                        <div class=" font-bold">&bullet; {{count($idea->comments)}} comments</div>
+                        <div class=" font-bold">&bullet; {{$idea->comments()->count()}} comments</div>
                     </div>
                 </div>
+                @include('ideas._modal')
+                @include('ideas._delete-modal')
                 <div class="w-1/4 flex justify-end" x-data="{ isOpen : false }">
                     <div
-                        class="{{$idea->status->classes}}   px-6 mr-2 items-center align-middle text-center rounded-xl py-1 text-sm">
+                        class=" {{$idea->status->classes}} px-6 mr-2 items-center align-middle text-center rounded-xl py-1 text-sm">
                         {{$idea->status->name}}
                     </div>
-                    <button @click="isOpen = !isOpen"
-                            @click.away="isOpen = false"
-                            class="bg-gray-background px-6 rounded-xl text-gray-400 mr-2">
-                        <i class="fa-solid fa-ellipsis"></i>
-                        <ul
-                            x-cloak
-                            x-show="isOpen"
-                            class=" absolute w-44 text-left bg-white ml-8 py-3 rounded-xl">
-                            <li>
-                                <a class="hover:bg-gray-100 block transition duration-150 ease-in  px-5 py-3"
-                                   href="#">Mark
-                                    As
-                                    Spam
-                                </a>
-                            </li>
-                            <li>
-                                <a class="hover:bg
-                                -gray-100 block transition duration-150 ease-in  px-5 py-3"
-                                   href="#">Delete Post
-                                </a>
-                            </li>
-                        </ul>
-                    </button>
+                    @can('manage',$idea)
+                        <button @click="isOpen = !isOpen"
+                                @click.away="isOpen = false"
+                                class="bg-gray-background px-6 rounded-xl text-gray-400 mr-2">
+                            <i class="fa-solid fa-ellipsis"></i>
+                            <ul
+                                x-cloak
+                                x-show="isOpen"
+                                class=" absolute w-44 text-left bg-white ml-8 py-3 rounded-xl z-10">
+
+                                <li>
+                                    <a data-modal-target="defaultModal" data-modal-toggle="defaultModal"
+                                       class="hover:bg-gray-100 block transition duration-150 ease-in  px-5 py-3"
+                                       type="button">
+                                        Edit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-modal-target="deleteModal" data-modal-toggle="deleteModal"
+                                       class="hover:bg-gray-100 block transition duration-150 ease-in  px-5 py-3"
+                                       type="button">
+                                        Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </button>
+                    @endcan
                 </div>
             </div>
         </div>
